@@ -502,7 +502,8 @@
       background: var(--primary-color);
       position: fixed;
       top: -10px;
-      z-index: 1000;
+      z-index: 1100;
+      pointer-events: none;
       animation: confetti-fall linear forwards;
     }
 
@@ -760,6 +761,22 @@
         padding: 20px 15px;
         font-size: 0.8rem;
       }
+    }
+
+    /* Melhorias gerais para quebra de texto e evitar overflow horizontal */
+    html, body, .container, .result, .info-box, .offer-box {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .result * {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .result {
+      white-space: normal;
     }
 
     @media (max-width: 320px) {
@@ -1100,7 +1117,7 @@
     </div>
   </div>
   
-  <footer>© 2025 Curso Sabonetes Artesanais - Transforme sua paixão em lucro 💖</footer>
+  
 
   <script>
     let currentProgress = 0;
@@ -1129,8 +1146,7 @@
     function showResult(type, progressPercent) {
       nextScreen('resultado', progressPercent, 'Finalizando...');
       startLoadingMessages();
-      
-      setTimeout(() => createConfetti(), 1000);
+      // A chuva de confetes será disparada logo após o resultado ser renderizado
       
       setTimeout(() => {
         updateProgress(100, 'Completo! ✓');
@@ -1233,6 +1249,9 @@
             </ul>
           </div>
         `;
+
+        // Dispara a chuva de confetes agora que o resultado foi renderizado
+        setTimeout(() => createConfetti(), 80);
 
         startTimer();
       }, 4000);
