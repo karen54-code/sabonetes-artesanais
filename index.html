@@ -15,6 +15,10 @@
       --title-color: #5e4036;
       --white: #ffffff;
       --success-color: #06d6a0;
+      --whatsapp-green: #25d366;
+      --whatsapp-bg: #e5ddd5;
+      --whatsapp-received: #ffffff;
+      --whatsapp-sent: #dcf8c6;
     }
     
     * {
@@ -98,12 +102,57 @@
       margin: 0 auto;
     }
 
+    /* CORREÇÃO: Remover position: absolute para evitar o "pulinho" */
     .hidden {
       opacity: 0;
       transform: translateY(40px);
       pointer-events: none;
-      position: absolute;
       width: 100%;
+      /* Removido: position: absolute */
+      display: none; /* Adicionado para evitar sobreposição */
+    }
+
+    .active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+      display: flex; /* Mantém o layout flex */
+    }
+
+    /* Intro específico: evitar centralizar verticalmente (pode esconder conteúdo no topo) */
+    #intro {
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 25px;
+    }
+
+    /* Agrupamento para info + depoimento com layout responsivo em telas grandes */
+    .intro-content {
+      width: 100%;
+      display: block;
+    }
+
+    .intro-content .testimonial {
+      margin-top: 12px;
+      max-width: 420px;
+    }
+
+    @media (min-width: 1100px) {
+      .intro-content {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+      }
+
+      .intro-content .info-box {
+        flex: 1 1 auto;
+        margin-bottom: 0;
+      }
+
+      .intro-content .testimonial {
+        flex: 0 0 360px;
+        margin-top: 0;
+      }
     }
 
     .bg-decoration {
@@ -478,6 +527,183 @@
       box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4);
     }
 
+    /* NOVO: Estilo para mensagens de WhatsApp realistas */
+    .whatsapp-container {
+      background: var(--whatsapp-bg);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .whatsapp-header {
+      background: var(--whatsapp-green);
+      color: white;
+      padding: 15px;
+      margin: -20px -20px 15px -20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .whatsapp-header::before {
+      content: "⬅";
+      font-size: 1.2rem;
+    }
+
+    .whatsapp-chat {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .whatsapp-chat::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .whatsapp-chat::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 3px;
+    }
+
+    .message {
+      display: flex;
+      gap: 8px;
+      max-width: 85%;
+      animation: messageAppear 0.3s ease;
+    }
+
+    @keyframes messageAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.received {
+      align-self: flex-start;
+    }
+
+    .message.sent {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .message-bubble {
+      padding: 10px 14px;
+      border-radius: 18px;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .received .message-bubble {
+      background: var(--whatsapp-received);
+      border-top-left-radius: 4px;
+    }
+
+    .sent .message-bubble {
+      background: var(--whatsapp-sent);
+      border-top-right-radius: 4px;
+    }
+
+    .message-text {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .message-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: rgba(0,0,0,0.5);
+      margin-top: 2px;
+    }
+
+    .message-sender {
+      font-weight: 600;
+      color: rgba(0,0,0,0.8);
+    }
+
+    .message-time {
+      margin-left: 8px;
+    }
+
+    .sent .message-time {
+      color: var(--whatsapp-green);
+    }
+
+    /* NOVO: Estilo para os e-books bônus */
+    .bonus-ebooks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
+      justify-content: center;
+    }
+
+    .ebook-item {
+      flex: 1;
+      min-width: 150px;
+      background: linear-gradient(135deg, #fff8f6, #ffffff);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      border: 2px solid var(--primary-color);
+    }
+
+    .ebook-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .ebook-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .ebook-title {
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .ebook-desc {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      line-height: 1.3;
+    }
+
     /* footer removido — regras excluídas para limpeza */
 
     .confetti {
@@ -547,6 +773,22 @@
       .stat-item {
         width: 100%;
       }
+      
+      .whatsapp-container {
+        max-width: 100%;
+      }
+      
+      .message {
+        max-width: 90%;
+      }
+      
+      .bonus-ebooks {
+        flex-direction: column;
+      }
+      
+      .ebook-item {
+        min-width: 100%;
+      }
     }
 
     @media (max-width: 480px) {
@@ -561,9 +803,13 @@
         padding-bottom: 35px;
       }
 
-      /* Evitar sobreposição de elementos */
+      /* CORREÇÃO: Evitar sobreposição de elementos */
       .hidden {
         display: none;
+      }
+
+      .active {
+        display: flex;
       }
 
       h1 { 
@@ -583,7 +829,7 @@
         display: none; /* Remove efeito de brilho em mobile */
       }
 
-      .stat-item:hover, .info-box:hover, .testimonial:hover {
+      .stat-item:hover, .info-box:hover, .testimonial:hover, .ebook-item:hover {
         transform: none;
         box-shadow: 0 5px 15px rgba(0,0,0,0.05);
       }
@@ -738,6 +984,35 @@
       }
       .loading-messages {
         min-height: 100px;
+      }
+      
+      .profile-pic {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .message-bubble {
+        padding: 8px 12px;
+      }
+      
+      .message-text {
+        font-size: 0.85rem;
+      }
+      
+      .ebook-item {
+        padding: 10px;
+      }
+      
+      .ebook-icon {
+        font-size: 2rem;
+      }
+      
+      .ebook-title {
+        font-size: 0.85rem;
+      }
+      
+      .ebook-desc {
+        font-size: 0.75rem;
       }
     }
 
@@ -916,7 +1191,7 @@
 
   <div class="main-wrapper">
     <!-- Tela 1 -->
-    <div class="container" id="intro">
+    <div class="container active" id="intro">
       <h1>✨ Transforme Sabonetes em Renda Extra! ✨</h1>
       <div class="info-box" style="margin-bottom: 25px;">
         <p style="font-size: 1.2rem; color: var(--secondary-color); font-weight: 600;">
@@ -1100,14 +1375,16 @@
     }
 
     function nextScreen(nextId, progressPercent, progressText) {
-      const current = document.querySelector('.container:not(.hidden)');
+      const current = document.querySelector('.container.active');
       const next = document.getElementById(nextId);
       
+      current.classList.remove('active');
       current.classList.add('hidden');
       updateProgress(progressPercent, progressText);
       
       setTimeout(() => {
         next.classList.remove('hidden');
+        next.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 400);
     }
@@ -1166,6 +1443,27 @@
             </div>
           </div>
           
+          <!-- NOVO: Seção de depoimentos em formato WhatsApp realista -->
+          <div style="margin: 30px 0;">
+            <h3 style="color: var(--secondary-color); font-size: 1.4rem; margin-bottom: 20px;">
+              💬 Veja o que nossas alunas estão dizendo:
+            </h3>
+            
+            <div class="whatsapp-container">
+              <div class="whatsapp-header">
+                Grupo Alunas Sabonetes Artesanais
+              </div>
+              
+              <div class="whatsapp-chat" id="whatsapp-chat">
+                <!-- As mensagens serão adicionadas dinamicamente pelo JavaScript -->
+              </div>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: #666; margin-top: 15px; text-align: center;">
+              <strong>+ 243 mensagens</strong> de agradecimento este mês!
+            </p>
+          </div>
+          
           <div class="offer-box" style="background: linear-gradient(135deg, #fff8f6, #ffffff); border: 3px dashed var(--secondary-color);">
             <div class="discount-badge" style="font-size: 1.2rem; padding: 12px 25px;">
               🎯 OFERTA ESPECIAL: 70% OFF
@@ -1187,6 +1485,37 @@
                 <li style="margin: 12px 0;">📱 Suporte Prioritário</li>
                 <li style="margin: 12px 0;">🏆 Certificado de Conclusão</li>
               </ul>
+            </div>
+            
+            <!-- NOVO: Seção de E-books Bônus -->
+            <div style="margin-top: 25px;">
+              <h4 style="color: var(--secondary-color); font-size: 1.2rem; margin-bottom: 15px; text-align: center;">
+                📚 <strong>+ 3 E-BOOKS EXTRAS</strong> DE PRESENTE!
+              </h4>
+              
+              <div class="bonus-ebooks">
+                <div class="ebook-item">
+                  <span class="ebook-icon">💻</span>
+                  <div class="ebook-title">Vendas na Internet</div>
+                  <div class="ebook-desc">Guia completo para vender seus produtos online e nas redes sociais</div>
+                </div>
+                
+                <div class="ebook-item">
+                  <span class="ebook-icon">🕯️</span>
+                  <div class="ebook-title">Velas Artesanais</div>
+                  <div class="ebook-desc">Aprenda a criar velas aromáticas e aumentar sua renda</div>
+                </div>
+                
+                <div class="ebook-item">
+                  <span class="ebook-icon">🏠</span>
+                  <div class="ebook-title">Aromatizantes Caseiros</div>
+                  <div class="ebook-desc">Receitas exclusivas de aromatizantes naturais para casa</div>
+                </div>
+              </div>
+              
+              <p style="font-size: 0.9rem; color: #666; margin-top: 15px; text-align: center;">
+                <strong>Valor total dos bônus: R$ 297,00</strong> - <span style="color: #ff4444; font-weight: 700;">HOJE É POR CONTA DA CASA!</span>
+              </p>
             </div>
           </div>
 
@@ -1219,11 +1548,101 @@
           </div>
         `;
 
+        // Adiciona as mensagens do WhatsApp
+        addWhatsAppMessages();
+        
         // Dispara a chuva de confetes agora que o resultado foi renderizado
         setTimeout(() => createConfetti(), 80);
 
         startTimer();
       }, 4000);
+    }
+
+    function addWhatsAppMessages() {
+      const chat = document.getElementById('whatsapp-chat');
+      const messages = [
+        {
+          type: 'received',
+          name: 'Ana Silva',
+          time: '10:23',
+          text: 'Gente, hoje recebi mais um pedido de 50 sabonetes! Estou tão feliz! 🥰',
+          delay: 300
+        },
+        {
+          type: 'received',
+          name: 'Carla Santos',
+          time: '10:25',
+          text: 'Que maravilha, Ana! Eu também fechei uma encomenda para um casamento!',
+          delay: 1500
+        },
+        {
+          type: 'received',
+          name: 'Marina Oliveira',
+          time: '10:26',
+          text: 'Minha primeira venda foi para uma amiga, ela adorou e já indicou para mais 3 pessoas! ❤️',
+          delay: 2700
+        },
+        {
+          type: 'received',
+          name: 'Juliana Costa',
+          time: '10:27',
+          text: 'Consegui pagar todas as contas do mês só com a venda dos sabonetes! Obrigada pelo curso! 🙏',
+          delay: 3900
+        },
+        {
+          type: 'received',
+          name: 'Patrícia Lima',
+          time: '10:29',
+          text: 'Meu marido não acreditava, mas agora viu que dá certo! Estamos planejando uma viagem com o lucro! ✈️',
+          delay: 5100
+        },
+        {
+          type: 'received',
+          name: 'Fernanda Rocha',
+          time: '10:30',
+          text: 'Alguém mais está na feira amanhã? Vou levar meus novos sabonetes de lavanda! 💜',
+          delay: 6300
+        },
+        {
+          type: 'received',
+          name: 'Beatriz Almeida',
+          time: '10:31',
+          text: 'Eu vou! Já preparei uma promoção: leve 3 e pague 2! 📦',
+          delay: 7500
+        }
+      ];
+
+      messages.forEach((msg, index) => {
+        setTimeout(() => {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = `message ${msg.type}`;
+          
+          // Gera uma cor de fundo baseada no nome (para simular foto de perfil)
+          const nameHash = msg.name.split('').reduce((a, b) => {
+            a = ((a << 5) - a) + b.charCodeAt(0);
+            return a & a;
+          }, 0);
+          const hue = Math.abs(nameHash) % 360;
+          
+          messageDiv.innerHTML = `
+            <div class="profile-pic" style="background: hsl(${hue}, 70%, 65%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">
+              ${msg.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <div class="message-text">${msg.text}</div>
+              </div>
+              <div class="message-info">
+                <span class="message-sender">${msg.name}</span>
+                <span class="message-time">${msg.time}</span>
+              </div>
+            </div>
+          `;
+          
+          chat.appendChild(messageDiv);
+          chat.scrollTop = chat.scrollHeight;
+        }, msg.delay);
+      });
     }
 
     function startLoadingMessages() {
