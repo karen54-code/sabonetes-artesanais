@@ -49,7 +49,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: auto;
+      height: 72px; /* fix height to reserve space under the fixed bar */
     }
 
     .progress-bar {
@@ -82,7 +82,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      padding-top: 60px;
+      padding-top: 72px; /* reserve same height as .progress-container */
       padding-bottom: 40px;
       overflow-x: hidden;
     }
@@ -138,20 +138,44 @@
     }
 
     @media (min-width: 1100px) {
+      /* Layout em duas colunas, mas centralizado para telas grandes */
       .intro-content {
         display: flex;
         gap: 30px;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Ajusta container para aproveitar largura maior e centralizar conteúdo */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Intro centralizado no eixo principal */
+      #intro {
+        align-items: center;
+        justify-content: center;
+        padding-top: 40px;
       }
 
       .intro-content .info-box {
-        flex: 1 1 auto;
-        margin-bottom: 0;
+        flex: 1 1 60%;
+        margin: 0;
       }
 
       .intro-content .testimonial {
         flex: 0 0 360px;
-        margin-top: 0;
+        margin: 0;
+        text-align: center;
+      }
+
+      /* Centraliza o botão principal na intro em telas largas */
+      #intro button {
+        align-self: center;
+        margin: 18px 0;
       }
     }
 
@@ -799,7 +823,7 @@
       }
 
       .main-wrapper {
-        padding-top: 45px;
+        padding-top: 55px;
         padding-bottom: 35px;
       }
 
@@ -1247,17 +1271,20 @@
       <button onclick="nextScreen('info1', 40, 'Perfeito!')">🎯 Mais de 6 horas</button>
     </div>
 
-    <!-- Informação 1 -->
+    <!-- Informação 1 com Gatilhos de Urgência -->
     <div class="container hidden" id="info1">
       <div class="info-box">
         <span class="info-icon">🚀</span>
-        <h3>MERCADO EM EXPLOSÃO: SUA GRANDE CHANCE!</h3>
+        <h3>OPORTUNIDADE ÚNICA: MERCADO EM EXPLOSÃO!</h3>
         
-        <div style="background: linear-gradient(135deg, #fff8f6, #ffffff); padding: 20px; border-radius: 15px; margin: 20px 0; border: 2px dashed var(--secondary-color);">
-          <p style="font-size: 1.1rem; font-weight: 600; color: var(--secondary-color);">
-            💡 Você sabia?
+        <div style="background: linear-gradient(135deg, #ff4444, #ff6b6b); padding: 20px; border-radius: 15px; margin: 20px 0; color: white; box-shadow: 0 5px 20px rgba(255,68,68,0.2);">
+          <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 10px;">
+            � MERCADO EM ASCENSÃO:
           </p>
-          <p>O mercado de sabonetes artesanais cresceu <span class="highlight">300% nos últimos 2 anos</span>! E a demanda continua aumentando!</p>
+          <p style="font-size: 1.4rem; font-weight: 700; margin: 15px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+            Crescimento de <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 8px;">427% em 2023</span>
+          </p>
+          <p style="opacity: 0.9;">Aproveite enquanto o mercado ainda não está saturado!</p>
         </div>
         
         <div class="stats">
@@ -1517,16 +1544,80 @@
             </div>
           </div>
 
-          <div style="margin: 30px 0; padding: 20px; background: rgba(255,255,255,0.9); border-radius: 15px;">
-            <p style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 600;">
-              ⚡ Oferta por tempo limitado!
+          <!-- Contador mais urgente -->
+          <div style="margin: 30px 0; padding: 20px; background: linear-gradient(135deg, #ff4444, #ff6b6b); border-radius: 15px; color: white; text-align: center; box-shadow: 0 5px 20px rgba(255,68,68,0.3);">
+            <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 10px;">
+              ⚡ ÚLTIMA CHANCE: 70% DE DESCONTO
             </p>
-            <div style="font-size: 1.8rem; font-weight: 700; color: #ff4444; margin: 15px 0;">
+            <div style="font-size: 2.2rem; font-weight: 800; margin: 15px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
               <span id="timer">14:59</span>
             </div>
-            <p style="font-size: 0.9rem; color: #666;">
-              Após esse tempo, o valor volta ao normal
+            <p style="font-size: 1rem; opacity: 0.9;">
+              Promoção encerra em breve! Não perca essa oportunidade
             </p>
+          </div>
+
+          <!-- Social Proof mais específico -->
+          <div style="margin: 0 0 30px 0; padding: 20px; background: rgba(255,255,255,0.95); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; text-align: center;">
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--secondary-color);">1.247</div>
+                <div style="font-size: 0.9rem; color: #666;">Alunas Ativas</div>
+              </div>
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--secondary-color);">98.7%</div>
+                <div style="font-size: 0.9rem; color: #666;">Satisfação</div>
+              </div>
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--secondary-color);">4.721</div>
+                <div style="font-size: 0.9rem; color: #666;">Vendas em Out/23</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ para eliminar objeções -->
+          <div style="margin: 0 0 30px 0; padding: 25px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <h4 style="color: var(--secondary-color); font-size: 1.3rem; margin-bottom: 20px; text-align: center;">
+              ❓ Perguntas Frequentes
+            </h4>
+            
+            <div style="text-align: left;">
+              <div style="margin-bottom: 15px;">
+                <p style="font-weight: 600; color: var(--title-color); margin-bottom: 8px;">
+                  💭 Nunca fiz sabonetes antes, vou conseguir?
+                </p>
+                <p style="font-size: 0.95rem; color: #666; margin-left: 20px;">
+                  Sim! O curso começa do absoluto zero e tem acompanhamento individual. 82% das nossas alunas nunca tinham feito sabonetes antes!
+                </p>
+              </div>
+              
+              <div style="margin-bottom: 15px;">
+                <p style="font-weight: 600; color: var(--title-color); margin-bottom: 8px;">
+                  💭 Quanto preciso investir em materiais?
+                </p>
+                <p style="font-size: 0.95rem; color: #666; margin-left: 20px;">
+                  Com apenas R$ 150-200 você consegue fazer seus primeiros 30 sabonetes! O retorno médio é de 300% sobre o investimento.
+                </p>
+              </div>
+              
+              <div style="margin-bottom: 15px;">
+                <p style="font-weight: 600; color: var(--title-color); margin-bottom: 8px;">
+                  💭 Quanto tempo preciso dedicar por dia?
+                </p>
+                <p style="font-size: 0.95rem; color: #666; margin-left: 20px;">
+                  Com apenas 1-2 horas por dia você já consegue produzir e vender! O curso é 100% gravado, assista no seu tempo.
+                </p>
+              </div>
+              
+              <div style="margin-bottom: 15px;">
+                <p style="font-weight: 600; color: var(--title-color); margin-bottom: 8px;">
+                  💭 Como vou conseguir vender?
+                </p>
+                <p style="font-size: 0.95rem; color: #666; margin-left: 20px;">
+                  O curso inclui módulo completo de vendas e marketing digital. 87% das alunas fazem sua primeira venda em até 7 dias!
+                </p>
+              </div>
+            </div>
           </div>
 
           <a href="https://pay.kiwify.com.br/seu-checkout" class="btn-final" style="font-size: 1.3rem; padding: 25px 40px;">
@@ -1685,6 +1776,125 @@
         
         setTimeout(() => confetti.remove(), 5000);
       }
+    }
+
+    // Garante que a primeira tela esteja visível assim que a página carregar
+    window.addEventListener('load', () => {
+      // rola para o topo e foca a intro, evitando que a barra fixa cubra o conteúdo
+      window.scrollTo(0, 0);
+      const intro = document.getElementById('intro');
+      if (intro) {
+        // centralizar a intro na viewport, considerando a altura da barra fixa
+        const bar = document.querySelector('.progress-container');
+        const offset = bar ? bar.offsetHeight : 0;
+        const top = Math.max(intro.getBoundingClientRect().top + window.pageYOffset - offset - 10, 0);
+        window.scrollTo({ top, behavior: 'auto' });
+      }
+    });
+    // Modal de Saída
+    let exitModalShown = false;
+    
+    document.addEventListener('mouseleave', function(e) {
+      if (e.clientY < 0 && !exitModalShown) {
+        showExitModal();
+      }
+    });
+
+    function showExitModal() {
+      exitModalShown = true;
+      
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        animation: fadeIn 0.3s ease;
+      `;
+
+      const content = document.createElement('div');
+      content.style.cssText = `
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        max-width: 90%;
+        width: 500px;
+        text-align: center;
+        position: relative;
+        animation: scaleIn 0.3s ease;
+      `;
+
+      content.innerHTML = `
+        <div style="position: absolute; top: -30px; right: -30px;">
+          <button onclick="closeExitModal(this)" style="background: white; border: none; width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); cursor: pointer; font-size: 20px; color: #666;">×</button>
+        </div>
+        
+        <div style="font-size: 3rem; margin-bottom: 20px;">🎁</div>
+        
+        <h3 style="color: var(--secondary-color); font-size: 1.6rem; margin-bottom: 15px;">
+          ESPERE! Oferta Especial
+        </h3>
+        
+        <div style="background: linear-gradient(135deg, #ff4444, #ff6b6b); color: white; padding: 15px; border-radius: 12px; margin: 20px 0;">
+          <p style="font-size: 1.8rem; font-weight: 700; margin: 0;">
+            + 10% OFF
+          </p>
+          <p style="margin: 5px 0 0 0; font-size: 0.9rem;">
+            nos próximos 15 minutos
+          </p>
+        </div>
+        
+        <p style="font-size: 1.1rem; color: #666; margin: 20px 0;">
+          Aproveite este desconto extra exclusivo e comece sua jornada agora!
+        </p>
+        
+        <a href="https://pay.kiwify.com.br/seu-checkout" style="
+          display: inline-block;
+          background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+          color: white;
+          padding: 15px 30px;
+          border-radius: 50px;
+          font-weight: 600;
+          text-decoration: none;
+          margin-top: 20px;
+          font-size: 1.1rem;
+          box-shadow: 0 5px 15px rgba(249,127,107,0.3);
+          ">
+          QUERO APROVEITAR AGORA! →
+        </a>
+      `;
+
+      modal.appendChild(content);
+      document.body.appendChild(modal);
+      
+      // Adiciona animações ao CSS se ainda não existirem
+      if (!document.querySelector('#modal-animations')) {
+        const style = document.createElement('style');
+        style.id = 'modal-animations';
+        style.textContent = `
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    function closeExitModal(button) {
+      const modal = button.closest('div').parentElement.parentElement;
+      modal.style.animation = 'fadeOut 0.3s ease';
+      setTimeout(() => modal.remove(), 300);
     }
   </script>
 </body>
